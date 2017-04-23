@@ -1,3 +1,7 @@
 {
-
+    "userInput": {
+        "min": 250,
+        "max": 500
+    },
+    "forwardChance": 9
 }

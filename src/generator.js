@@ -1,9 +1,8 @@
 const { randomInteger } = require('./utils');
 
-function *string(message) {
+function *string(message, forwardChance) {
     for (let i = 0; i < message.length;) {
-        // todo: config
-        const direction = randomInteger(0, 3);
+        const direction = randomInteger(0, forwardChance);
 
         if (direction) {
             yield message.slice(0, ++i);
@@ -13,19 +12,22 @@ function *string(message) {
     }
 }
 
-function *generator(valid, invalid) {
-    let vIdx = randomInteger(0, valid.length - 1);
-    let invIdx = randomInteger(0, invalid.length - 1);
+function *generator(valid, invalid, forwardChance) {
+    let vIdx;
+    let invIdx;
 
-    let vMessage = valid[vIdx];
-    let invMessage = invalid[invIdx];
+    let vMessage;
+    let invMessage;
 
     while(true) {
-        yield *string(vMessage);
-        yield *string(invMessage);
+        vIdx = randomInteger(0, valid.length - 1);
+        invIdx = randomInteger(0, invalid.length - 1);
 
-        vIdx = randomInteger(0, invalid.length - 1);
-        invIdx = randomInteger(0, valid.length - 1);
+        vMessage = valid[vIdx];
+        invMessage = invalid[invIdx];
+
+        yield *string(vMessage, forwardChance);
+        yield *string(invMessage, forwardChance);
     }
 }
 
