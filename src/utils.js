@@ -4,18 +4,20 @@ function randomInteger(from, to = Number.MAX_SAFE_INTEGER) {
 
 function randomInterval(callback, from, to) {
     let duration = randomInteger(from, to);
-    const res = {};
+    let timeoutId;
 
     function randomCallback() {
         callback();
 
         duration = randomInteger(from, to);
-        res.id = setTimeout(randomCallback, duration);
+        timeoutId = setTimeout(randomCallback, duration);
     }
 
-    res.id = setTimeout(randomCallback, duration);
+    timeoutId = setTimeout(randomCallback, duration);
 
-    return res;
+    return function clear() {
+        clearTimeout(timeoutId);
+    };
 }
 
 module.exports = {
