@@ -3,6 +3,11 @@ const config = require('./config');
 
 const { startShooting } = require('./src/gunslinger');
 
-const stop = startShooting(dictionary, config);
+const stopShooting = [];
 
-setTimeout(stop, 10000);
+for (let i = 0; i < 120; i++) {
+    stopShooting.push(startShooting(dictionary, config));
+}
+
+
+setTimeout(() => stopShooting.forEach(stop => stop()), 10000);

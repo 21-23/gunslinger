@@ -6,7 +6,7 @@ function *string(message, forwardChance) {
 
         if (direction) {
             yield message.slice(0, ++i);
-        } else {
+        } else if (i > 0) {
             yield message.slice(0, --i);
         }
     }
@@ -19,7 +19,7 @@ function *generator(valid, invalid, forwardChance) {
     let vMessage;
     let invMessage;
 
-    while(true) {
+    while (true) {
         vIdx = randomInteger(0, valid.length - 1);
         invIdx = randomInteger(0, invalid.length - 1);
 

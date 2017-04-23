@@ -1,4 +1,21 @@
 {
-    "invalid": [".das)(", "dfd()", "()", "ffffuuuuuuuuuuuu", "ьфз(ч =Ю чюфпу)югтшй()"],
-    "valid": ["map(x => x)", "reduce()", "filter(_.partialRight(_.gt, 0)).takeRight(2)", "fill(\"*\", 1, -1)"]
+    "invalid": [
+        ".das)(",
+        "dfd()",
+        "()",
+        "ffffuuuuuuuuuuuu",
+        "ьфз(ч =Ю чюфпу)югтшй()",
+        ".{}",
+        "mpa(((12",
+        "w2",
+        "fiterke(x => xd)"
+    ],
+    "valid": [
+        "map(x => x)",
+        "reduce()",
+        "filter(_.partialRight(_.gt, 0)).takeRight(2)",
+        "fill(\"*\", 1, -1)",
+        "takeRight()",
+        "filter(x => x > 2)"
+    ]
 }

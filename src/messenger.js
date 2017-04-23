@@ -7,7 +7,8 @@ function format(message) {
 
 function messenger(address) {
     const ws = { address };
-    ws.send = () => {};
+    ws.send = () => {
+    };
 
     return function send(msg) {
         const message = format(msg);
