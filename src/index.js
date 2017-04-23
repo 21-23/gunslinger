@@ -1,9 +1,7 @@
-const validDic = require('../dictionary/valid').messages;
-const invalidDic = require('../dictionary/invalid').messages;
-
+const { valid, invalid } = require('../dictionary/main');
 const { generator } = require('./generator');
 const { randomInterval } = require('./utils');
 
-const iterator = generator(validDic, invalidDic);
+const iterator = generator(valid, invalid);
 
-randomInterval(() => console.log(iterator.next().value), 50, 500);
+randomInterval(() => console.log(iterator.next().value), 250, 500);

@@ -1,0 +1,4 @@
+{
+    "invalid": [".das)(", "dfd()", "()", "ffffuuuuuuuuuuuu", "ьфз(ч =Ю чюфпу)югтшй()"],
+    "valid": ["map(x => x)", "reduce()", "filter(_.partialRight(_.gt, 0)).takeRight(2)", "fill(\"*\", 1, -1)"]
+}
