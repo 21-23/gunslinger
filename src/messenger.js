@@ -7,7 +7,6 @@ function format(message) {
         message: {
             name: 'solution',
             input:  message,
-            type: 'GUNSLINGER'
         }
     }
 }
@@ -22,9 +21,12 @@ function sendTo(module, sendTimeArray, msg) {
 }
 
 function receive(module, sendTimeArray, msg) {
-    log(module, '<--', `[${Date.now() - sendTimeArray[0]}ms]`, msg);
+    const mesg = JSON.parse(msg);
+    if (mesg.message.name === 'solution.evaluated') {
+        log(module, '<--', `[${Date.now() - sendTimeArray[0]}ms]`, msg);
+        sendTimeArray.shift();
+    }
 
-    sendTimeArray.shift();
 }
 
 function messenger(address, module) {

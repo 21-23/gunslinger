@@ -16,7 +16,7 @@ function startShooting({ valid, invalid }, { forwardChance, userInput, address }
 
             return function stop() {
                 clear();
-                unsubscribe();
+                //unsubscribe();
             }
         });
 }
