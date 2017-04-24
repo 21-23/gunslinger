@@ -1,3 +1,5 @@
+const WebSocket = require('uws');
+
 function format(message) {
     return {
         type: 'GUNSLINGER',
@@ -12,14 +14,12 @@ function send(ws, msg) {
 }
 
 function messenger(address) {
-    const ws = { address };
-    ws.send = () => {};
-    ws.addEventListener = (event, callback) => callback();
-
     return new Promise((resolve, reject) => {
+        const ws = new WebSocket(address);
         const sendTo = send.bind(null, ws);
-        ws.addEventListener('open', () => resolve(sendTo));
-        ws.addEventListener('close', (e) => reject(e));
+
+        ws.on('open', () => resolve(sendTo));
+        ws.on('close', (e) => reject(e));
     });
 }
 
