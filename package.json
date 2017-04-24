@@ -1,5 +1,9 @@
 {
-  "dependencies": {
-    "uws": "^0.14.1"
-  }
+    "scripts": {
+        "start": "node index.js",
+        "echo": "node uws_echo.js"
+    },
+    "dependencies": {
+        "uws": "^0.14.1"
+    }
 }
