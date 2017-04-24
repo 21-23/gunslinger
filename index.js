@@ -10,6 +10,8 @@ for (let i = 0; i < config.players; i++) {
 }
 
 
-setTimeout(() => stopShooting.forEach((promise) => {
-    promise.then(stop => stop());
-}), config.duration);
+setTimeout(() => {
+    stopShooting.forEach((promise) => {
+        promise.then(stop => stop());
+    });
+}, config.duration);

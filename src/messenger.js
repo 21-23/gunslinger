@@ -8,7 +8,7 @@ function format(message) {
     }
 }
 
-function send(module, sendTimeArray, msg) {
+function sendTo(module, sendTimeArray, msg) {
     const message = JSON.stringify(format(msg));
 
     sendTimeArray.push(Date.now());
@@ -25,14 +25,24 @@ function receive(module, sendTimeArray, msg) {
 
 function messenger(address, module) {
     return new Promise((resolve, reject) => {
-        const ws = new WebSocket(address);
+        let ws = new WebSocket(address);
+
         const sendTimeArray = [];
-        const sendTo = send.bind(ws, module, sendTimeArray);
+        const send = sendTo.bind(ws, module, sendTimeArray);
         const receiveFrom = receive.bind(ws, module, sendTimeArray);
 
-        ws.on('open', () => resolve(sendTo));
-        ws.on('close', reject);
+        function unsubscribe() {
+            ws.removeAllListeners('open');
+            ws.removeAllListeners('close');
+            ws.removeAllListeners('message');
+
+            ws.terminate();
+        }
+
+        ws.on('open', () => resolve({ send, unsubscribe }));
+        ws.on('close', () => reject(unsubscribe));
         ws.on('message', receiveFrom);
+
     });
 }
 
