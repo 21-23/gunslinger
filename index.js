@@ -10,4 +10,6 @@ for (let i = 0; i < 120; i++) {
 }
 
 
-setTimeout(() => stopShooting.forEach(stop => stop()), 10000);
+setTimeout(() => stopShooting.forEach((promise) => {
+    promise.then(stop => stop());
+}), 10000);

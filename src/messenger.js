@@ -5,16 +5,22 @@ function format(message) {
     }
 }
 
+function send(ws, msg) {
+    const message = format(msg);
+
+    ws.send(JSON.stringify(message));
+}
+
 function messenger(address) {
     const ws = { address };
-    ws.send = () => {
-    };
+    ws.send = () => {};
+    ws.addEventListener = (event, callback) => callback();
 
-    return function send(msg) {
-        const message = format(msg);
-
-        ws.send(JSON.stringify(message));
-    };
+    return new Promise((resolve, reject) => {
+        const sendTo = send.bind(null, ws);
+        ws.addEventListener('open', () => resolve(sendTo));
+        ws.addEventListener('close', (e) => reject(e));
+    });
 }
 
 module.exports = {
