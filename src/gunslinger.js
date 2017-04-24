@@ -7,7 +7,7 @@ let shooters = 0;
 function startShooting({ valid, invalid }, { forwardChance, userInput, address }) {
     const iterator = generator(valid, invalid, forwardChance);
 
-    return messenger(address, `gunslinger#${++shooters}`)
+    return messenger(address, `gl#${++shooters}`)
         .then((send) => {
             return randomInterval(() => {
                 const { value } = iterator.next();

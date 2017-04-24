@@ -2,7 +2,7 @@ const { Server } = require('uws');
 const wss = new Server({ port: 3030 });
 
 function onMessage(ws, message) {
-    ws.send(message);
+    setTimeout(() => ws.send(message), 10);
     console.log('received: ' + message);
 }
 

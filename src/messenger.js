@@ -8,27 +8,31 @@ function format(message) {
     }
 }
 
-function send(ws, module, msg) {
+function send(module, sendTimeArray, msg) {
     const message = JSON.stringify(format(msg));
 
-    log(`${module} send`, msg);
-    ws.send(message);
+    sendTimeArray.push(Date.now());
+    log(module, '-->', msg);
+
+    this.send(message);
 }
 
-function receive(msg, module) {
-    const message = msg.data;
+function receive(module, sendTimeArray, msg) {
+    log(module, '<--', `[${Date.now() - sendTimeArray[0]}ms]`, msg);
 
-    log(`${module} receive`, msg);
+    sendTimeArray.shift();
 }
 
 function messenger(address, module) {
     return new Promise((resolve, reject) => {
         const ws = new WebSocket(address);
-        const sendTo = send.bind(null, ws, module);
+        const sendTimeArray = [];
+        const sendTo = send.bind(ws, module, sendTimeArray);
+        const receiveFrom = receive.bind(ws, module, sendTimeArray);
 
         ws.on('open', () => resolve(sendTo));
-        ws.on('close', (e) => reject(e));
-        ws.on('message', (m) => receive(m, module));
+        ws.on('close', reject);
+        ws.on('message', receiveFrom);
     });
 }
 

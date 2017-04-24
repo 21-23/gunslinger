@@ -24,8 +24,19 @@ function getStringTime() {
     return (new Date()).toISOString();
 }
 
+function pad(str, to) {
+    if (str.length < to) {
+        const spaces = new Array(to - str.length).join(' ');
+
+        return str + spaces;
+    }
+
+    return str;
+}
+
 module.exports = {
     randomInteger,
     randomInterval,
     getStringTime,
+    pad,
 };
