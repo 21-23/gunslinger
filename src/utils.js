@@ -20,7 +20,12 @@ function randomInterval(callback, from, to) {
     };
 }
 
+function getStringTime() {
+    return (new Date()).toISOString();
+}
+
 module.exports = {
     randomInteger,
     randomInterval,
+    getStringTime,
 };
