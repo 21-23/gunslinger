@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { getStringTime, pad } = require('./utils');
 
-const filePath = `logs/${Date.now()}.txt`;
+const filePath = path.resolve(__dirname + `/../logs/${Date.now()}.txt`);
 const dirname = path.dirname(filePath);
 
 if (!fs.existsSync(dirname)) {
