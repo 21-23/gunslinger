@@ -3,8 +3,12 @@ const { log } = require('./logger');
 
 function format(message) {
     return {
-        type: 'GUNSLINGER',
-        message,
+        to: 'front-service',
+        message: {
+            name: 'solution',
+            input:  message,
+            type: 'GUNSLINGER'
+        }
     }
 }
 
