@@ -46,8 +46,14 @@ function messenger(target, id) {
             ws.terminate();
         }
 
-        ws.on('open', () => resolve({ send, unsubscribe }));
-        ws.on('close', () => reject(unsubscribe));
+        ws.on('open', () => {
+            log(`${id}: connected to `, url);
+            resolve({ send, unsubscribe })
+        });
+        ws.on('close', () => {
+            log('messenger: closed', url);
+            reject(unsubscribe)
+        });
         ws.on('message', receiveFrom);
 
     });

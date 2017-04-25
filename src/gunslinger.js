@@ -6,7 +6,7 @@ let shooters = 0;
 
 function startShooting({ valid, invalid }, { forwardChance, userInput, target }) {
     const iterator = generator(valid, invalid, forwardChance);
-    const id = `gl-${++shooters}`;
+    const id = `&id=gl-${++shooters}`;
 
     return messenger(target, id)
         .then(({ send }) => {
