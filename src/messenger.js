@@ -29,13 +29,14 @@ function receive(module, sendTimeArray, msg) {
 
 }
 
-function messenger(address, module) {
+function messenger(target, id) {
     return new Promise((resolve, reject) => {
-        let ws = new WebSocket(address);
+        const url = target + id;
+        const ws = new WebSocket(url);
 
         const sendTimeArray = [];
-        const send = sendTo.bind(ws, module, sendTimeArray);
-        const receiveFrom = receive.bind(ws, module, sendTimeArray);
+        const send = sendTo.bind(ws, id, sendTimeArray);
+        const receiveFrom = receive.bind(ws, id, sendTimeArray);
 
         function unsubscribe() {
             ws.removeAllListeners('open');

@@ -4,11 +4,12 @@ const { messenger } = require('./messenger');
 
 let shooters = 0;
 
-function startShooting({ valid, invalid }, { forwardChance, userInput, address }) {
+function startShooting({ valid, invalid }, { forwardChance, userInput, target }) {
     const iterator = generator(valid, invalid, forwardChance);
+    const id = `gl-${++shooters}`;
 
-    return messenger(address, `gl#${++shooters}`)
-        .then(({ send, unsubscribe }) => {
+    return messenger(target, id)
+        .then(({ send }) => {
             const clear = randomInterval(() => {
                 const { value } = iterator.next();
                 send(value);
@@ -16,7 +17,6 @@ function startShooting({ valid, invalid }, { forwardChance, userInput, address }
 
             return function stop() {
                 clear();
-                //unsubscribe();
             }
         });
 }
