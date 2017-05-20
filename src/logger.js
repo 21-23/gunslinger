@@ -12,7 +12,7 @@ if (!fs.existsSync(dirname)) {
 const file = fs.createWriteStream(filePath, { flags : 'w' });
 
 function log(module, ...messages) {
-    let str = `[${getStringTime()}] ${module}`;
+    let str = `[${getStringTime()}] ${module} `;
     str = pad(str, 35) + messages.join(' ');
 
     file.write(str + '\n');

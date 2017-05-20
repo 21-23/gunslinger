@@ -11,22 +11,27 @@ function format(message) {
     }
 }
 
-function sendTo(module, sendTimeArray, msg) {
+function sendTo(id, stats, msg) {
     const message = JSON.stringify(format(msg));
 
-    sendTimeArray.push(Date.now());
-    log(module, '-->', msg);
+    stats.send.push(Date.now());
+    log(id, '-->', msg);
 
     this.send(message);
 }
 
-function receive(module, sendTimeArray, msg) {
-    const mesg = JSON.parse(msg);
-    if (mesg.message.name === 'solution.evaluated') {
-        log(module, '<--', `[${Date.now() - sendTimeArray[0]}ms]`, msg);
-        sendTimeArray.shift();
+function receive(id, stats, msg) {
+    const { message } = JSON.parse(msg);
+
+    if (message.name !== 'solution.evaluated') {
+        return;
     }
 
+    const now = Date.now();
+    const reactionTime = now - stats.send[stats.send.length - 1];
+
+    stats.receive.push(reactionTime);
+    log(id, '<--', `[${reactionTime}ms]`, msg);
 }
 
 function messenger(target, id) {
@@ -34,9 +39,12 @@ function messenger(target, id) {
         const url = target + id;
         const ws = new WebSocket(url);
 
-        const sendTimeArray = [];
-        const send = sendTo.bind(ws, id, sendTimeArray);
-        const receiveFrom = receive.bind(ws, id, sendTimeArray);
+        const stats = {
+            send: [],
+            receive: []
+        };
+        const send = sendTo.bind(ws, id, stats);
+        const receiveFrom = receive.bind(ws, id, stats);
 
         function unsubscribe() {
             ws.removeAllListeners('open');
@@ -46,9 +54,14 @@ function messenger(target, id) {
             ws.terminate();
         }
 
+        function flush() {
+            log(id, 'Sent:', stats.send.length, 'Received:', stats.receive.length);
+            log(id, 'Longest reaction time:', `${Math.max(...stats.receive)}ms`);
+        }
+
         ws.on('open', () => {
             log(`${id}: connected to `, url);
-            resolve({ send, unsubscribe })
+            resolve({ send, unsubscribe, flush })
         });
         ws.on('close', () => {
             log('messenger: closed', url);

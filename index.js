@@ -14,4 +14,4 @@ setTimeout(() => {
     stopShooting.forEach((promise) => {
         promise.then(stop => stop());
     });
-}, 10000);
+}, config.duration);

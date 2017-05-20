@@ -9,13 +9,14 @@ function startShooting({ valid, invalid }, { forwardChance, userInput, target })
     const id = `&id=gl-${++shooters}`;
 
     return messenger(target, id)
-        .then(({ send }) => {
+        .then(({ send, flush }) => {
             const clear = randomInterval(() => {
                 const { value } = iterator.next();
                 send(value);
             }, userInput.min, userInput.max);
 
             return function stop() {
+                flush();
                 clear();
             }
         });
