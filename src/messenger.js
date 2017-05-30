@@ -31,7 +31,7 @@ function receive(id, stats, msg) {
     const reactionTime = now - stats.send[stats.send.length - 1];
 
     stats.receive.push(reactionTime);
-    log(id, '<--', `[${reactionTime}ms]`, msg);
+    log(id, '<--', `[${reactionTime} ms]`, msg);
 }
 
 function messenger(target, id) {
@@ -56,7 +56,7 @@ function messenger(target, id) {
 
         function flush() {
             log(id, 'Sent:', stats.send.length, 'Received:', stats.receive.length);
-            log(id, 'Longest reaction time:', `${Math.max(...stats.receive)}ms`);
+            log(id, 'Longest reaction time:', `${Math.max(...stats.receive)} ms`);
         }
 
         ws.on('open', () => {
