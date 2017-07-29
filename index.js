@@ -9,7 +9,6 @@ for (let i = 0; i < config.players; i++) {
     stopShooting.push(startShooting(dictionary, config));
 }
 
-
 setTimeout(() => {
     stopShooting.forEach((promise) => {
         promise.then(stop => stop());

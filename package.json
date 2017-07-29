@@ -1,6 +1,7 @@
 {
     "scripts": {
         "start": "node index.js",
+        "start:measure": "node index-measure.js",
         "echo": "node uws_echo.js"
     },
     "dependencies": {
