@@ -1,4 +1,5 @@
 const WebSocket = require('uws');
+const uuidv4 = require('uuid/v4');
 
 const config = require('./config');
 
@@ -22,7 +23,7 @@ function receiveMessage(id, msg) {
 }
 
 function startShooting(config) {
-    const id = `&id=gl-msr-${++shooters}`;
+    const id = `&id=gl-msr-${uuidv4()}`;
     const url = config.target + id;
     const ws = new WebSocket(url);
 
