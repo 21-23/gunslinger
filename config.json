@@ -4,7 +4,7 @@
         "max": 800
     },
     "forwardChance": 9,
-    "target": "ws://localhost:3001/gunslinger?session=rs-school-demo",
+    "target": "ws://2123.dev:3001/gunslinger?session=rs-school-demo&game=_qd",
     "players": 10,
     "duration": 10000
 }
