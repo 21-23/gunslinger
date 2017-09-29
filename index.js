@@ -3,14 +3,12 @@ const config = require('./config');
 
 const { startShooting } = require('./src/gunslinger');
 
-const stopShooting = [];
+const shooters = [];
 
 for (let i = 0; i < config.players; i++) {
-    stopShooting.push(startShooting(dictionary, config));
+    shooters.push(startShooting(dictionary, config));
 }
 
 setTimeout(() => {
-    stopShooting.forEach((promise) => {
-        promise.then(stop => stop());
-    });
+    shooters.forEach(shooter => shooter.then(stop => stop()));
 }, config.duration);

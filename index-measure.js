@@ -7,7 +7,6 @@ const { randomInterval } = require('./src/utils');
 const { log } = require('./src/logger');
 
 const stopShooting = [];
-let shooters = 0;
 
 function receiveMessage(id, msg) {
     const { message } = JSON.parse(msg);
