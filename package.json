@@ -1,11 +1,15 @@
 {
   "scripts": {
-    "start": "node index.js",
-    "start:measure": "node index-measure.js",
+    "start:_": "node src/index.js",
+    "start:_:time": "node src/index-measure.js",
+    "start:css": "node",
+    "debug": "node --inspect-brk src/index.js",
     "echo": "node uws_echo.js"
   },
   "dependencies": {
+    "nconf": "0.9.1",
     "uuid": "^3.1.0",
-    "uws": "^0.14.1"
+    "uws": "^0.14.1",
+    "winston": "2.4.0"
   }
 }

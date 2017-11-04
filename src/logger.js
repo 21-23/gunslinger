@@ -1,24 +1,24 @@
-const fs = require('fs');
-const path = require('path');
-const { getStringTime, pad } = require('./utils');
+const winston = require('winston');
 
-const filePath = path.resolve(__dirname + `/../logs/${Date.now()}.txt`);
-const dirname = path.dirname(filePath);
+const config = require('./config');
 
-if (!fs.existsSync(dirname)) {
-    fs.mkdirSync(dirname);
-}
-
-const file = fs.createWriteStream(filePath, { flags : 'w' });
-
-function log(module, ...messages) {
-    let str = `[${getStringTime()}] ${module} `;
-    str = pad(str, 35) + messages.join(' ');
-
-    file.write(str + '\n');
-    console.log(str);
-}
-
-module.exports = {
-    log,
-};
+module.exports = new winston.Logger({
+    level: config.get('v') ? 'verbose' : 'info',
+    transports: [
+        new winston.transports.Console({
+            colorize: true,
+            timestamp: true,
+            stderrLevels: ['error'],
+        }),
+        new winston.transports.File({
+            level: 'verbose',
+            dirname: 'logs',
+            filename: 'gunslinger.log',
+            json: true,
+            maxsize: 5000000, // ~5Mb
+            maxFiles: 100,
+            tailable: true,
+            timestamp: true,
+        }),
+    ]
+});

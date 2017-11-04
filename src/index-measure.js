@@ -3,8 +3,8 @@ const uuidv4 = require('uuid/v4');
 
 const config = require('./config');
 
-const { randomInterval } = require('./src/utils');
-const { log } = require('./src/logger');
+const { randomInterval } = require('./utils');
+const logger = require('./logger');
 
 const stopShooting = [];
 
@@ -18,7 +18,7 @@ function receiveMessage(id, msg) {
     const now = Date.now();
     const solutionTime = now - JSON.parse(message.result)[0];
 
-    log(id, 'solution.evaluated', solutionTime, 'ms');
+    logger.verbose(id, 'solution.evaluated', solutionTime, 'ms');
 }
 
 function startShooting(config) {
@@ -29,7 +29,7 @@ function startShooting(config) {
     let clear;
 
     ws.on('open', () => {
-        log(`${id}: connected to `, url);
+        logger.info(`${id}: connected to `, url);
 
         clear = randomInterval(() => {
             const message = JSON.stringify({
@@ -43,10 +43,10 @@ function startShooting(config) {
         }, config.userInput.min, config.userInput.max);
     });
     ws.on('close', () => {
-        log('messenger: closed', url);
+        logger.info('messenger: closed', url);
     });
     ws.on('error', (e) => {
-        log('messenger: error', e);
+        logger.info('messenger: error', e);
     });
     ws.on('message', receiveMessage.bind(null, id));
 
@@ -56,12 +56,12 @@ function startShooting(config) {
     };
 }
 
-for (let i = 0; i < config.players; i++) {
-    stopShooting.push(startShooting(config));
+for (let i = 0; i < config.get('players'); i++) {
+    stopShooting.push(startShooting(config.get()));
 }
 
 setTimeout(() => {
     stopShooting.forEach((stop) => {
         stop();
     });
-}, config.duration);
+}, config.get('duration'));

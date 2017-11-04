@@ -1,5 +1,5 @@
 const WebSocket = require('uws');
-const { log } = require('./logger');
+const logger = require('./logger');
 
 function format(message) {
     return {
@@ -15,7 +15,7 @@ function sendTo(id, stats, msg) {
     const message = JSON.stringify(format(msg));
 
     stats.send.push(Date.now());
-    log(id, '-->', msg);
+    logger.verbose(id, '-->', msg);
 
     this.send(message);
 }
@@ -31,7 +31,7 @@ function receive(id, stats, msg) {
     const reactionTime = now - stats.send[stats.send.length - 1];
 
     stats.receive.push(reactionTime);
-    log(id, '<--', `[${reactionTime} ms]`, msg);
+    logger.verbose(id, '<--', `[${reactionTime} ms]`, msg);
 }
 
 function messenger(target, id) {
@@ -55,16 +55,16 @@ function messenger(target, id) {
         }
 
         function flush() {
-            log(id, 'Sent:', stats.send.length, 'Received:', stats.receive.length);
-            log(id, 'Longest reaction time:', `${Math.max(...stats.receive)} ms`);
+            logger.info(id, 'Sent:', stats.send.length, 'Received:', stats.receive.length);
+            logger.info(id, 'Longest reaction time:', `${Math.max(...stats.receive)} ms`);
         }
 
         ws.on('open', () => {
-            log(`${id}: connected to `, url);
+            logger.info(`${id}: connected to `, url);
             resolve({ send, unsubscribe, flush })
         });
         ws.on('close', () => {
-            log('messenger: closed', url);
+            logger.info('messenger: closed', url);
             reject(unsubscribe)
         });
         ws.on('message', receiveFrom);
