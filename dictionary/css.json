@@ -1,0 +1,18 @@
+{
+    "invalid": [
+        ".",
+        ".div,",
+        "div, span]",
+        ".class-name, span%"
+    ],
+    "valid": [
+        "div",
+        ".class-name",
+        ".cl p",
+        "b b b b",
+        "div:last",
+        "article span.some-cl",
+        "div[title]",
+        "span a img a[href^=\"#\"]"
+    ]
+}

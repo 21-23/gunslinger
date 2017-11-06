@@ -9,7 +9,7 @@ function startShooting({ valid, invalid }, { forwardChance, userInput, target })
     const id = `&id=gl-${uuidv4()}`;
 
     return messenger(target, id)
-        .then(({ send, flush }) => {
+        .then(({ send, flush, unsubscribe }) => {
             const clear = randomInterval(() => {
                 const { value } = iterator.next();
                 send(value);

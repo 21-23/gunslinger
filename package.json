@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "start:_": "node src/index.js",
+    "start:_": "node src/index.js -d _",
     "start:_:time": "node src/index-measure.js",
-    "start:css": "node",
-    "debug": "node --inspect-brk src/index.js",
+    "start:css": "node src/index.js -d css",
+    "debug": "node --inspect-brk src/index.js -d _",
     "echo": "node uws_echo.js"
   },
   "dependencies": {

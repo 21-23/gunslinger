@@ -1,6 +1,10 @@
 const nconf = require('nconf');
 
-const config = nconf.argv().env().file({ file: 'config.json', dir: process.cwd() });
+const config = nconf.argv({
+    'd': {
+        alias: 'dictionary',
+    },
+}).env().file({ file: 'config.json', dir: process.cwd() });
 
 config.defaults({
     userInput: {

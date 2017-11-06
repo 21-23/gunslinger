@@ -1,8 +1,9 @@
-const dictionary = require('../dictionary/main.json');
 const config = require('./config');
+const logger = require('./logger');
 
 const { startShooting } = require('./gunslinger');
 
+const dictionary = require(`../dictionary/${config.get('d')}.json`);
 const shooters = [];
 
 for (let i = 0; i < config.get('players'); i++) {
@@ -10,5 +11,6 @@ for (let i = 0; i < config.get('players'); i++) {
 }
 
 setTimeout(() => {
+    logger.info('DONE; Flushing results...', 'Waiting for late messages...');
     shooters.forEach(shooter => shooter.then(stop => stop()));
 }, config.get('duration'));
