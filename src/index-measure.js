@@ -23,7 +23,8 @@ function receiveMessage(id, msg) {
 
 function startShooting(config) {
     const id = `&id=gl-msr-${uuidv4()}`;
-    const url = config.target + id;
+    const game = `&game=${config.g}`;
+    const url = config.target + id + game;
     const ws = new WebSocket(url);
 
     let clear;

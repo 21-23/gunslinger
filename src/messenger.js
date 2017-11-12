@@ -34,9 +34,9 @@ function receive(id, stats, msg) {
     logger.verbose(id, '<--', `[${reactionTime} ms]`, msg);
 }
 
-function messenger(target, id) {
+function messenger(target, id, game) {
     return new Promise((resolve, reject) => {
-        const url = target + id;
+        const url = target + id + game;
         const ws = new WebSocket(url);
 
         const stats = {
