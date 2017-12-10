@@ -4,7 +4,8 @@
     "start:_:time": "node src/index-measure.js -d _ -g _qd",
     "start:css": "node src/index.js -d css -g cssqd",
     "debug": "node --inspect-brk src/index.js -d _ -g _qd",
-    "echo": "node uws_echo.js"
+    "echo": "node uws_echo.js",
+    "postinstall": "mkdir -p logs"
   },
   "dependencies": {
     "nconf": "0.9.1",
