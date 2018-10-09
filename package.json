@@ -3,6 +3,7 @@
     "start:_": "node src/index.js -d _ -g _qd",
     "start:_:time": "node src/index-measure.js -d _ -g _qd",
     "start:css": "node src/index.js -d css -g cssqd",
+    "start:js": "node src/index.js -d js -g jsqd",
     "debug": "node --inspect-brk src/index.js -d _ -g _qd",
     "echo": "node uws_echo.js",
     "postinstall": "mkdir -p logs"

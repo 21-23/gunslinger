@@ -1,0 +1,22 @@
+{
+    "invalid": [
+        ".das)(",
+        "dfd()",
+        "rertrn ();",
+        "ffffuuuuuuuuuuuu",
+        "ьфз(ч =Ю чюфпу)югтшй()",
+        ".{}",
+        "mpa(((12",
+        "w2",
+        "fiterke(x => xd)",
+        "i am gnslngr"
+    ],
+    "valid": [
+        "return arg;",
+        "return arg + 10",
+        "return Object.keys(arg).reduce((acc, i) => acc + 1, '')",
+        "return arg - arg;",
+        "return 42;",
+        "return Object.getOwnPropertySymbols(arg)"
+    ]
+}
